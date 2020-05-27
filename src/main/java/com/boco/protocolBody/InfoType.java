@@ -112,4 +112,12 @@ public interface InfoType {
      * 横洞防火门
      */
     String MSG_CMD_ATD = "MSG_CMD_ATD";
+    /**
+     * 消息反馈
+     */
+    String MSG_RETURN_CMD = "MSG_RETURN_CMD";
+    /**
+     * 入库消息
+     */
+    String MSG_INSERT_DB = "MSG_INSERT_DB";
 }

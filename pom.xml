@@ -9,12 +9,14 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.boco</groupId>
-    <artifactId>collctrsvr</artifactId>
+    <artifactId>collctrsvr_vd</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>collctrsvr</name>
-    <description>collctrsvr project for Spring Boot</description>
+    <name>collctrsvr_vd</name>
+    <description>collctrsvr_vd project for Spring Boot</description>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
 

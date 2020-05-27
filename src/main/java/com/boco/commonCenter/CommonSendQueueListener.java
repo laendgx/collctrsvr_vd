@@ -1,7 +1,7 @@
 package com.boco.commonCenter;
 
-import com.boco.protocolBody.CmsProtocolbody;
 import com.boco.protocolBody.Identity;
+import com.boco.protocolBody.Protocolbody;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-@Component
-@RabbitListener(queues = "${sendQueueName}")
+//@Component
+//@RabbitListener(queues = "${sendQueueName}")
 public class CommonSendQueueListener {
     private static final Logger logger= LoggerFactory.getLogger(CommonSendQueueListener.class);
 
@@ -29,30 +29,30 @@ public class CommonSendQueueListener {
     private Environment env;
 
     @RabbitHandler
-    public void process(String Protocolbody) {
+    public void process(String revdatabody) {
         try {
-            System.out.println("CommonSendQueueListener-->rev-->" + Protocolbody);
-            JSONObject jsonobject = JSONObject.fromObject(Protocolbody);
-            CmsProtocolbody Protocolbodytest = (CmsProtocolbody) JSONObject.toBean(jsonobject, CmsProtocolbody.class);
-            String busno = Protocolbodytest.getBusinessno();
-            System.out.println("CommonSendQueueListener_Protocolbodytest-->getBusinessno: " + busno);
-
-            String messageId = String.valueOf(UUID.randomUUID());
-            String messageData = "test message, hello!";
-            String curTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
-            CmsProtocolbody cmsProtocolbodytemp = new CmsProtocolbody();
-            cmsProtocolbodytemp.setBusinessno("2345678");
-            Identity Identitytemp=new Identity();
-            Identitytemp.setDevId("22210001");
-            Identitytemp.setTime(curTime);
-            cmsProtocolbodytemp.setIdentity(Identitytemp);
-            JSONObject object = JSONObject.fromObject(cmsProtocolbodytemp);
-            String jsonstr = object.toString();
-            rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
-            rabbitTemplate.setExchange(env.getProperty("exchangeName"));
-            rabbitTemplate.setRoutingKey(env.getProperty("sendQueueroutingkey"));
-            rabbitTemplate.convertAndSend(jsonstr);
+            System.out.println("队列collInfo接收-->" + revdatabody);
+//            JSONObject jsonobject = JSONObject.fromObject(revdatabody);
+//            Protocolbody Protocolbodytest = (Protocolbody) JSONObject.toBean(jsonobject, Protocolbody.class);
+//            String busno = Protocolbodytest.getBusinessno();
+//            System.out.println("CommonSendQueueListener_Protocolbodytest-->getBusinessno: " + busno);
+//
+//            String messageId = String.valueOf(UUID.randomUUID());
+//            String messageData = "test message, hello!";
+//            String curTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//
+//            Protocolbody Protocolbodytemp = new Protocolbody();
+//            Protocolbodytemp.setBusinessno("2345678");
+//            Identity Identitytemp=new Identity();
+//            Identitytemp.setDevId("22210001");
+//            Identitytemp.setCreatetime(curTime);
+//            Protocolbodytemp.setIdentity(Identitytemp);
+//            JSONObject object = JSONObject.fromObject(Protocolbodytemp);
+//            String jsonstr = object.toString();
+//            rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+//            rabbitTemplate.setExchange(env.getProperty("exchangeName"));
+//            rabbitTemplate.setRoutingKey(env.getProperty("sendQueueroutingkey"));
+//            rabbitTemplate.convertAndSend(jsonstr);
         }catch ( Exception e) {
             logger.error("数据转发异常"+e.toString());
         }
